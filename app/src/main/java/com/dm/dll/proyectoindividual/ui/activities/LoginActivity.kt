@@ -147,7 +147,7 @@ class LoginActivity : AppCompatActivity() {
     private fun initObservables(){
 
         loginViewModel.user.observe(this){
-            startActivity(Intent(this,InicioActivity::class.java))//esta es la vista que me sale a crear cuenta?
+            startActivity(Intent(this,InicioActivity::class.java))//esta es la vista que me sale para inicio?
         }
 
         loginViewModel.error.observe(this){

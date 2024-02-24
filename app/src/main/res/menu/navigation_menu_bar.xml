@@ -6,7 +6,7 @@
 
     <item
         android:id="@+id/main_items"
-        android:title="MENÚ"
+        android:title="Menú"
 
         >
         <menu>
@@ -32,6 +32,15 @@
                 android:title="buscar"
                 app:showAsAction="ifRoom"/>
 
+
+        </menu>
+
+    </item>
+
+    <item
+        android:id="@+id/usuario_item"
+        android:title="Usuario">
+        <menu>
             <item
                 android:id="@+id/it_perfil"
                 android:enabled="true"
@@ -45,9 +54,7 @@
                 android:title="Cerrar sesión"
                 app:showAsAction="ifRoom"/>
         </menu>
-
     </item>
-
 
 
 </menu>

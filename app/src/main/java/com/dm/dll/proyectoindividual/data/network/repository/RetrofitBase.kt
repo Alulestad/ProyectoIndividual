@@ -14,7 +14,7 @@ object RetrofitBase {
             val originalHttpUrl = originalRequest.url
 
             val url = originalHttpUrl.newBuilder()
-                .addQueryParameter("apiKey", "f577a37a66db41a289595d58f338ff65")
+                .addQueryParameter("apiKey", "5df54aa2f40a4a74a7b0401771762915")
                 .build()
 
             val requestBuilder = originalRequest.newBuilder()

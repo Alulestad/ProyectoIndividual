@@ -3,6 +3,7 @@ package com.dm.dll.proyectoindividual.logic.network.usercase
 import android.util.Log
 import com.dm.dll.proyectoindividual.core.Constants
 import com.dm.dll.proyectoindividual.data.network.endpoints.news.NewsEndPoint
+import com.dm.dll.proyectoindividual.data.network.endpoints.news.TitularesEndPoint
 import com.dm.dll.proyectoindividual.data.network.entities.news.Article
 import com.dm.dll.proyectoindividual.data.network.repository.RetrofitBase
 
@@ -11,17 +12,17 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class GetAllNewsUserCase {
+class GetAllTitularesUserCase {
 
-    suspend fun invoke(limit: Int): Flow<Result<List<Article>>> = flow {
+    suspend fun invoke(): Flow<Result<List<Article>>> = flow {
         var result: Result<List<Article>>? = null
         var newLimit=1
 
         val baseService = RetrofitBase.getNewsConnection()
-        val service = baseService.create(NewsEndPoint::class.java)
+        val service = baseService.create(TitularesEndPoint::class.java)
 
-        while (newLimit<limit){
-            val call = service.getAllNews(40)
+        while (true){
+            val call = service.getAllTitulares()
             try {
                 if (call.isSuccessful) {
                     val a = call.body()!!

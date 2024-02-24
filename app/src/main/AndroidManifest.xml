@@ -16,6 +16,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.FormularioNoticiasFiltrosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.NoticiasFiltradasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.TitularesActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.InicioActivity"
             android:exported="false" />
         <activity

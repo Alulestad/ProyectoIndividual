@@ -14,30 +14,31 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dm.dll.proyectoindividual.R
 import com.dm.dll.proyectoindividual.databinding.ActivityInicioBinding
+import com.dm.dll.proyectoindividual.databinding.ActivityTitularesBinding
 import com.dm.dll.proyectoindividual.ui.adapters.NewsAdapter
 import com.dm.dll.proyectoindividual.ui.viewmodels.InicioViewModel
+import com.dm.dll.proyectoindividual.ui.viewmodels.TitularesViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class InicioActivity : AppCompatActivity() {
+class TitularesActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-    lateinit var binding: ActivityInicioBinding
+    lateinit var binding: ActivityTitularesBinding
 
     private val adapter =NewsAdapter()
-    private val viewModel:InicioViewModel by viewModels()
+    private val viewModel:TitularesViewModel by viewModels()
     private lateinit var dialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityInicioBinding.inflate(layoutInflater)
+        binding = ActivityTitularesBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
         auth = Firebase.auth
         getUserData()
-
 
 
         ///////////
@@ -95,18 +96,17 @@ class InicioActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.it_home -> {
 
-                    startActivity(Intent(this@InicioActivity,InicioActivity::class.java))
+                    startActivity(Intent(this@TitularesActivity,InicioActivity::class.java))
 
                 }
 
                 R.id.it_titulares -> {
-                    startActivity(Intent(this@InicioActivity,TitularesActivity::class.java))
+                    startActivity(Intent(this@TitularesActivity,TitularesActivity::class.java))
 
                 }
 
                 R.id.it_buscar -> {
-                    startActivity(Intent(this@InicioActivity,FormularioNoticiasFiltrosActivity::class.java))
-
+                    startActivity(Intent(this@TitularesActivity,FormularioNoticiasFiltrosActivity::class.java))
                 }
 
                 R.id.it_perfil -> {
@@ -172,7 +172,7 @@ class InicioActivity : AppCompatActivity() {
         binding.rvUsers.adapter = adapter
         binding.rvUsers.layoutManager =
             LinearLayoutManager(
-                this@InicioActivity,
+                this@TitularesActivity,
                 LinearLayoutManager.VERTICAL,
                 false
             )

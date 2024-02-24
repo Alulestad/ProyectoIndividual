@@ -21,10 +21,10 @@ class NewsAdapter : ListAdapter<Article,NewsAdapter.NewsVH>(DiffUtilNewsCallback
         private var binding: ItemNoticiaBinding = ItemNoticiaBinding.bind(view)
 
         fun render(item: Article) {
-            binding.imgNobel.load("https://openclipart.org/image/800px/167281")
-            binding.txtAnio.text = item.author
-            binding.txtCategoria.text = item.content!!
-            binding.txtNombre.text = item.url
+            binding.imgNoticia.load(item.urlToImage)
+            binding.txtTitulo.text = item.title
+            binding.txtDescripcion.text = item.description
+            binding.txtFecha.text = item.publishedAt
         }
     }
 
@@ -41,7 +41,7 @@ class NewsAdapter : ListAdapter<Article,NewsAdapter.NewsVH>(DiffUtilNewsCallback
     object DiffUtilNewsCallback : DiffUtil.ItemCallback<Article>() {
 
         override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
-            return (oldItem.author == newItem.author)
+            return (oldItem.title == newItem.title)
         }
 
         override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {

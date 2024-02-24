@@ -3,6 +3,7 @@ package com.dm.dll.proyectoindividual.logic.network.usercase
 import android.util.Log
 import com.dm.dll.proyectoindividual.core.Constants
 import com.dm.dll.proyectoindividual.data.network.endpoints.news.NewsEndPoint
+import com.dm.dll.proyectoindividual.data.network.endpoints.news.NewsFiltrosEndPoint
 import com.dm.dll.proyectoindividual.data.network.entities.news.Article
 import com.dm.dll.proyectoindividual.data.network.repository.RetrofitBase
 
@@ -10,18 +11,20 @@ import com.dm.dll.proyectoindividual.data.network.repository.RetrofitBase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.http.Query
 
-class GetAllNewsUserCase {
+class GetAllNewsFiltrosUserCase {
 
-    suspend fun invoke(limit: Int): Flow<Result<List<Article>>> = flow {
+    suspend fun invoke(q:String,  sortBy:String, limit: Int): Flow<Result<List<Article>>> = flow {
         var result: Result<List<Article>>? = null
         var newLimit=1
 
         val baseService = RetrofitBase.getNewsConnection()
-        val service = baseService.create(NewsEndPoint::class.java)
+        val service = baseService.create(NewsFiltrosEndPoint::class.java)
 
         while (newLimit<limit){
-            val call = service.getAllNews(40)
+            //val call = service.getAllNews(q,sortBy,limit)
+            val call = service.getAllNews(q, "2024-02-01", "2024-02-23", sortBy, limit)
             try {
                 if (call.isSuccessful) {
                     val a = call.body()!!

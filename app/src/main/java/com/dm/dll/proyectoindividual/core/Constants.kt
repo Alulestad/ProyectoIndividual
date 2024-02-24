@@ -6,6 +6,8 @@ object Constants {
     //const val USER_NAME="userName"
     const val USER_ID="userName"
 
+    const val DATOS_FILTRO="datosFiltro"
+
 
 
 }

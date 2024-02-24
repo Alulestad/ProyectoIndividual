@@ -13,31 +13,37 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dm.dll.proyectoindividual.R
+import com.dm.dll.proyectoindividual.core.Constants
 import com.dm.dll.proyectoindividual.databinding.ActivityInicioBinding
+import com.dm.dll.proyectoindividual.databinding.ActivityNoticiasFiltradasBinding
+import com.dm.dll.proyectoindividual.databinding.ActivityTitularesBinding
 import com.dm.dll.proyectoindividual.ui.adapters.NewsAdapter
 import com.dm.dll.proyectoindividual.ui.viewmodels.InicioViewModel
+import com.dm.dll.proyectoindividual.ui.viewmodels.NoticiasFiltradasViewModel
+import com.dm.dll.proyectoindividual.ui.viewmodels.TitularesViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class InicioActivity : AppCompatActivity() {
+class NoticiasFiltradasActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-    lateinit var binding: ActivityInicioBinding
+    lateinit var binding: ActivityNoticiasFiltradasBinding
 
     private val adapter =NewsAdapter()
-    private val viewModel:InicioViewModel by viewModels()
+    private val viewModel:NoticiasFiltradasViewModel by viewModels()
     private lateinit var dialog: AlertDialog
+
+    private  var stringsData = arrayListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityInicioBinding.inflate(layoutInflater)
+        binding = ActivityNoticiasFiltradasBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
         auth = Firebase.auth
         getUserData()
-
 
 
         ///////////
@@ -48,7 +54,15 @@ class InicioActivity : AppCompatActivity() {
         initListeners()
         swipeRecyclerView()
 
-        viewModel.getAllNews()
+
+
+        intent.extras.let{
+            stringsData=it?.getStringArrayList(Constants.DATOS_FILTRO)?: arrayListOf()
+        }
+        Log.d(Constants.TAG,"lll: "+stringsData.get(0))
+        Log.d(Constants.TAG,"lll: "+stringsData.get(1))
+        Log.d(Constants.TAG,"lll: "+stringsData.get(2))
+        viewModel.getAllNewsFiltradas(stringsData.get(0),stringsData.get(1),stringsData.get(2).toInt())
 
     }
 
@@ -87,6 +101,8 @@ class InicioActivity : AppCompatActivity() {
 
     private fun initListeners() {
 
+
+
         binding.imgMenu.setOnClickListener {
             binding.inicioActivityConMenuLateral.openDrawer(GravityCompat.START)
         }
@@ -95,18 +111,17 @@ class InicioActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.it_home -> {
 
-                    startActivity(Intent(this@InicioActivity,InicioActivity::class.java))
+                    startActivity(Intent(this@NoticiasFiltradasActivity,InicioActivity::class.java))
 
                 }
 
                 R.id.it_titulares -> {
-                    startActivity(Intent(this@InicioActivity,TitularesActivity::class.java))
+                    startActivity(Intent(this@NoticiasFiltradasActivity,TitularesActivity::class.java))
 
                 }
 
                 R.id.it_buscar -> {
-                    startActivity(Intent(this@InicioActivity,FormularioNoticiasFiltrosActivity::class.java))
-
+                    startActivity(Intent(this@NoticiasFiltradasActivity,FormularioNoticiasFiltrosActivity::class.java))
                 }
 
                 R.id.it_perfil -> {
@@ -126,7 +141,7 @@ class InicioActivity : AppCompatActivity() {
 ///////////////////
 
         binding.swiperv.setOnRefreshListener {
-            viewModel.getAllNews()
+            viewModel.getAllNewsFiltradas(stringsData.get(0),stringsData.get(1),stringsData.get(2).toInt())
             binding.swiperv.isRefreshing = false
         }
 
@@ -138,7 +153,7 @@ class InicioActivity : AppCompatActivity() {
             adapter.submitList(listFilter)
 
             if(filtro.isNullOrBlank()){
-                viewModel.getAllNews()
+                viewModel.getAllNewsFiltradas(stringsData.get(0),stringsData.get(1),stringsData.get(2).toInt())
             }
         }
 
@@ -172,7 +187,7 @@ class InicioActivity : AppCompatActivity() {
         binding.rvUsers.adapter = adapter
         binding.rvUsers.layoutManager =
             LinearLayoutManager(
-                this@InicioActivity,
+                this@NoticiasFiltradasActivity,
                 LinearLayoutManager.VERTICAL,
                 false
             )

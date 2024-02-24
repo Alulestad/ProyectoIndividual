@@ -5,18 +5,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dm.dll.proyectoindividual.data.network.entities.news.Article
 import com.dm.dll.proyectoindividual.logic.network.usercase.GetAllNewsUserCase
+import com.dm.dll.proyectoindividual.logic.network.usercase.GetAllTitularesUserCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class InicioViewModel : ViewModel() {
+class TitularesViewModel : ViewModel() {
 
     val listItems = MutableLiveData<List<Article>>()
     val error = MutableLiveData<String>()
 
     fun getAllNews() { //Aca yo hago uncamenta la consulta en el IO
         viewModelScope.launch(Dispatchers.IO) {
-            val userCase = GetAllNewsUserCase()
-            val newsFlow = userCase.invoke(100)
+            val userCase = GetAllTitularesUserCase()
+            val newsFlow = userCase.invoke()
 
             newsFlow
                 .collect { article -> //recolecta lo de la tuberia

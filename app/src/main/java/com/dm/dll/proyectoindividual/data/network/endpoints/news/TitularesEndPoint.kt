@@ -7,8 +7,8 @@ import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Query
 
-interface NewsEndPoint {
-    @GET("/v2/everything?domains=techcrunch.com,thenextweb.com")
-    suspend fun getAllNews(@Query("pageSize") pageSize:Int): Response<NewsX>
+interface TitularesEndPoint {
+    @GET("/v2/top-headlines?country=us")
+    suspend fun getAllTitulares(): Response<NewsX>
 
 }
