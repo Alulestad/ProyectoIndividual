@@ -1,13 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img_fondo_preriodico"
-    tools:context=".ui.activities.LoginActivity">
+    android:background="@color/verde_fondo1_registro"
+    tools:context=".ui.activities.MainActivity">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="88dp"
+        android:shadowColor="#FFFFFF"
+
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="3"
+        android:text="Registro"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/m3_til_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/usuario"
+        app:boxBackgroundColor="@android:color/white"
+        app:endIconMode="clear_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="150dp"
+        app:startIconContentDescription="Ingreso del usuario"
+
+        app:startIconDrawable="@drawable/ico_baseline_add_reaction_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/m3_tiet_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/m3_til_email"
@@ -17,10 +58,11 @@
         app:boxBackgroundColor="@android:color/white"
         app:endIconMode="clear_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="400dp"
-        app:startIconContentDescription="Ingreso del usuario"
+        app:layout_constraintTop_toBottomOf="@+id/m3_til_user"
 
+        android:layout_marginTop="10dp"
+
+        app:startIconContentDescription="Ingreso del usuario"
         app:startIconDrawable="@drawable/ico_baseline_account_circle_24">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -29,7 +71,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
 
-       />
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,76 +100,19 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <ImageView
-        android:id="@+id/imgFinger"
-        android:layout_width="202dp"
-        android:layout_height="181dp"
-        android:layout_marginTop="72dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_fingerprint" />
-
     <Button
-        android:id="@+id/btnSignUser"
-        android:layout_width="150dp"
+        android:id="@+id/btn_registrarse"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/ingresar"
-        app:icon="@drawable/ico_baseline_arrow_circle_right_24"
+        android:layout_marginTop="148dp"
+        android:text="Registrarse"
+        app:icon="@drawable/ico_baseline_add_24"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/m3_til_contrasenia"
         style="@style/button_style1"
-
-
         />
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.937">
-
-        <TextView
-            android:id="@+id/edt_para_registrar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-
-            android:shadowColor="#FFFFFF"
-            android:shadowDx="2"
-            android:shadowDy="2"
-            android:shadowRadius="3"
-            android:text="¿Aún no tienes cuenta?"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:textStyle="bold"
-
-            />
-
-        <Button
-            android:id="@+id/btnSaveUser"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="Crear Cuenta"
-            style="@style/button_style_links"
-            />
-
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/edt_text"
@@ -138,7 +123,6 @@
         android:text=""
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 
 

@@ -19,7 +19,7 @@
             android:name=".ui.activities.InicioActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.MainActivity2"
+            android:name=".ui.activities.RegistroActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.MainActivity"

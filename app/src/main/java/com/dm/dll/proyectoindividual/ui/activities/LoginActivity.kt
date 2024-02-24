@@ -7,11 +7,14 @@ import androidx.activity.viewModels
 import androidx.biometric.BiometricManager.Authenticators
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.viewModelScope
 import com.dm.dll.proyectoindividual.databinding.ActivityLoginBinding
 import com.dm.dll.proyectoindividual.ui.viewmodels.LoginViewModel
 
 
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.concurrent.Executor
 
 
@@ -48,6 +51,11 @@ class LoginActivity : AppCompatActivity() {
         AutenticationVariables()
         loginViewModel.checkBiometric(this)
 
+
+
+
+
+
     }
 
     override fun onStart() {
@@ -80,23 +88,26 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnSaveUser.setOnClickListener {
+            /*
             loginViewModel.createUserWithEmailAndPassword(
-                binding.etxtUser.text.toString(),
-                binding.etxtPassword.text.toString()
+                binding.m3TietEmail.text.toString(),
+                binding.m3TietContrasenia.text.toString()
             )
+            */
+            startActivity(Intent(this@LoginActivity,RegistroActivity::class.java))
 
         }
         binding.btnSignUser.setOnClickListener {
 
             loginViewModel.sigInUserWithEmailAndPassword(
-                binding.etxtUser.text.toString(),
-                binding.etxtPassword.text.toString()
+                binding.m3TietEmail.text.toString(),
+                binding.m3TietContrasenia.text.toString()
             )
         }
 
-        binding.btnNobels.setOnClickListener {
+        //binding.btnNobels.setOnClickListener {
             //iniciarNobeles()
-        }
+        //}
     }
 
 
@@ -142,7 +153,7 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.error.observe(this){
             Snackbar.make(
                 this,
-                binding.etxtUser,
+                binding.edtText,
                 it,
                 Snackbar.LENGTH_LONG
             ).show()

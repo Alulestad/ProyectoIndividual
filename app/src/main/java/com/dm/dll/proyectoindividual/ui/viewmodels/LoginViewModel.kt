@@ -2,16 +2,16 @@ package com.dm.dll.proyectoindividual.ui.viewmodels;
 
 
 import android.content.Context
-import android.content.Intent
-import android.provider.Settings
 import android.util.Log
-import android.view.View
 import androidx.biometric.BiometricManager
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dm.dll.proyectoindividual.data.network.entities.UserDB
+import com.dm.dll.proyectoindividual.data.network.entities.news.Article
 import com.dm.dll.proyectoindividual.logic.network.usercase.CreateUserWithEmailAndPasswordUserCase
+import com.dm.dll.proyectoindividual.logic.network.usercase.GetAllNewsUserCase
 import com.dm.dll.proyectoindividual.logic.network.usercase.SaveUserInDBUserCase
 import com.dm.dll.proyectoindividual.logic.network.usercase.SingInUserWithEmailAndPasswordUserCase
 
@@ -19,6 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LoginViewModel: ViewModel() {
+
 
     val user get() = _user
     private val _user = MutableLiveData<UserDB>()
@@ -66,7 +67,6 @@ class LoginViewModel: ViewModel() {
 
             }
 
-
         }
     }
 
@@ -86,5 +86,6 @@ class LoginViewModel: ViewModel() {
 
         }
     }
+
 
 }
