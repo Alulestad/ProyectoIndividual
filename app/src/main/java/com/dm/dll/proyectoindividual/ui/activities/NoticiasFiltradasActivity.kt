@@ -125,6 +125,7 @@ class NoticiasFiltradasActivity : AppCompatActivity() {
                 }
 
                 R.id.it_perfil -> {
+                    startActivity(Intent(this@NoticiasFiltradasActivity,OpcionesUsuarioActivity::class.java))
 
                 }
 

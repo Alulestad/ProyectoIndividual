@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="opciones_ordenamiento">
+        <item>relevancy</item>
+        <item>popularity</item>
+        <item>publishedAt</item>
+        <!-- Agrega más items según lo necesites -->
+    </string-array>
+</resources>

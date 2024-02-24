@@ -4,24 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
-import androidx.core.widget.addTextChangedListener
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.dm.dll.proyectoindividual.R
-import com.dm.dll.proyectoindividual.core.Constants
-import com.dm.dll.proyectoindividual.databinding.ActivityFormularioNoticiasFiltrosBinding
-import com.dm.dll.proyectoindividual.databinding.ActivityInicioBinding
-import com.dm.dll.proyectoindividual.databinding.ActivityNoticiasFiltradasBinding
-import com.dm.dll.proyectoindividual.databinding.ActivityRegistroBinding
+
+import com.dm.dll.proyectoindividual.databinding.ActivityOpcionesUsuarioBinding
 import com.dm.dll.proyectoindividual.ui.adapters.NewsAdapter
-import com.dm.dll.proyectoindividual.ui.viewmodels.FormularioNoticiasFiltradasViewModel
-import com.dm.dll.proyectoindividual.ui.viewmodels.InicioViewModel
-import com.dm.dll.proyectoindividual.ui.viewmodels.NoticiasFiltradasViewModel
+import com.dm.dll.proyectoindividual.ui.viewmodels.LoginViewModel
+import com.dm.dll.proyectoindividual.ui.viewmodels.OpcionesUsuarioViewModel
 import com.dm.dll.proyectoindividual.ui.viewmodels.RegistroViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -29,39 +20,35 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.util.concurrent.Executor
 
-class FormularioNoticiasFiltrosActivity : AppCompatActivity() {
+class OpcionesUsuarioActivity : AppCompatActivity() {
 
     private lateinit var  auth: FirebaseAuth
-    private lateinit var binding: ActivityFormularioNoticiasFiltrosBinding
+    private lateinit var binding: ActivityOpcionesUsuarioBinding
     private lateinit var executor: Executor
-    private val registroViewModel: FormularioNoticiasFiltradasViewModel by viewModels()
+    private val registroViewModel: OpcionesUsuarioViewModel by viewModels()
+    private val adapter = NewsAdapter()
+    private lateinit var dialog: AlertDialog
 
+    private  var stringsData = arrayListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityFormularioNoticiasFiltrosBinding.inflate(layoutInflater)
+        binding = ActivityOpcionesUsuarioBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
 
         auth = Firebase.auth
         getUserData()
 
-
+        initVariables("")
         initListeners()
         initObservables()
 
     }
 
     private fun initObservables() {
-        registroViewModel.filtros.observe(this){
-            val intent=Intent(this,NoticiasFiltradasActivity::class.java)
-            intent.putExtra(Constants.DATOS_FILTRO, arrayListOf(
-                binding.m3TietTema.text.toString(),
-                binding.menuSorts.editText?.text.toString(),
-                binding.m3TietLimite.text.toString())
-            )
-            startActivity(intent)//esta es la vista que me sale a crear cuenta?
+        registroViewModel.user.observe(this){
+            startActivity(Intent(this,LoginActivity::class.java))//esta es la vista que me sale a crear cuenta?
         }
 
         registroViewModel.error.observe(this){
@@ -76,15 +63,27 @@ class FormularioNoticiasFiltrosActivity : AppCompatActivity() {
         }
     }
 
-    private fun initListeners(){//en este caso no haria nada
-        binding.btnConsultar.setOnClickListener {
-            registroViewModel.createCadenaStrings(
-                binding.m3TietTema.text.toString(),
-                binding.menuSorts.editText?.text.toString(),
-                binding.m3TietLimite.text.toString()
-            )
+    private fun initVariables(messageError:String) {
+        dialog=AlertDialog.Builder(this)
+            .setTitle(getString(R.string.error_carga))
+            .setMessage(messageError)
+            .setPositiveButton(getString(R.string.aceptar)){ dialog, _->
+                //viewModel.getAllNobelPrizes()
+                dialog.dismiss()
+            }
+            .setNegativeButton(getString(R.string.cancelar)){ dialog, _->
+                dialog.dismiss()
+            }
+            .setCancelable(true) //si tocan afuera se cancela, false: si quero que tomen alguna de las opciones
+            .create()
 
-        }
+
+
+    }
+
+    private fun initListeners(){
+
+
 
         binding.imgMenu.setOnClickListener {
             binding.inicioActivityConMenuLateral.openDrawer(GravityCompat.START)
@@ -94,21 +93,22 @@ class FormularioNoticiasFiltrosActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.it_home -> {
 
-                    startActivity(Intent(this@FormularioNoticiasFiltrosActivity,InicioActivity::class.java))
+                    startActivity(Intent(this@OpcionesUsuarioActivity,InicioActivity::class.java))
 
                 }
 
                 R.id.it_titulares -> {
-                    startActivity(Intent(this@FormularioNoticiasFiltrosActivity,TitularesActivity::class.java))
+                    startActivity(Intent(this@OpcionesUsuarioActivity,TitularesActivity::class.java))
 
                 }
 
                 R.id.it_buscar -> {
-                    startActivity(Intent(this@FormularioNoticiasFiltrosActivity,FormularioNoticiasFiltrosActivity::class.java))
+                    startActivity(Intent(this@OpcionesUsuarioActivity,FormularioNoticiasFiltrosActivity::class.java))
                 }
 
                 R.id.it_perfil -> {
-                    startActivity(Intent(this@FormularioNoticiasFiltrosActivity,OpcionesUsuarioActivity::class.java))
+                    startActivity(Intent(this@OpcionesUsuarioActivity,OpcionesUsuarioActivity::class.java))
+
                 }
 
                 R.id.it_cerrar_sesion -> {
@@ -120,6 +120,18 @@ class FormularioNoticiasFiltrosActivity : AppCompatActivity() {
             true
         }
 
+
+///////////////////
+
+
+        binding.btnEliminar.setOnClickListener {
+            registroViewModel.deleteUserWithEmailAndPassword(
+                binding.m3TietEmail.text.toString(),
+                binding.m3TietContrasenia.text.toString(),
+                binding.m3TietUser.text.toString()
+            )
+            logOut()
+        }
 
     }
 
@@ -145,11 +157,12 @@ class FormularioNoticiasFiltrosActivity : AppCompatActivity() {
 
         }
     }
-
     private fun logOut() {
 
         auth.signOut()
         startActivity(Intent(this, LoginActivity::class.java))
     }
+
+
 
 }

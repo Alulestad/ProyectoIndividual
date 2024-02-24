@@ -36,4 +36,17 @@ class AutenticationRepository {
             return@runCatching userdb
         }
 
+
+
+    suspend fun deleteUser(email: String, password: String): Result<Void?> = runCatching {
+        val signInResult = signInUsers(email, password)
+        if (signInResult.isSuccess) {
+            val usFirebase = auth.currentUser?.delete()?.await()
+            return@runCatching usFirebase
+        } else {
+            throw signInResult.exceptionOrNull() ?: Exception("Error al iniciar sesión para borrar")
+        }
+    }
+
+
 }

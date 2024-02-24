@@ -5,14 +5,14 @@
     android:id="@+id/inicio_activity_con_menu_lateral"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.NoticiasFiltradasActivity">
+    tools:context=".ui.activities.OpcionesUsuarioActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/img_fondo_preriodico">
 
+
+        >
         <ImageView
             android:id="@+id/img_menu"
             android:layout_width="50dp"
@@ -26,22 +26,66 @@
 
             />
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="88dp"
+            android:shadowColor="#FFFFFF"
+
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="3"
+            android:text="Opciones de usuario"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/m3_til_tema"
+            android:id="@+id/m3_til_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
-            android:hint="Tema"
+            android:layout_marginTop="150dp"
+            android:hint="@string/usuario"
             app:boxBackgroundColor="@android:color/white"
             app:endIconMode="clear_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:startIconContentDescription="Ingreso del tema"
+            app:startIconContentDescription="Ingreso del usuario"
 
-            >
+            app:startIconDrawable="@drawable/ico_baseline_add_reaction_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/m3_tiet_tema"
+                android:id="@+id/m3_tiet_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/m3_til_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="@string/email"
+            app:boxBackgroundColor="@android:color/white"
+            app:endIconMode="clear_text"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@+id/m3_til_user"
+
+            app:startIconContentDescription="Ingreso del usuario"
+            app:startIconDrawable="@drawable/ico_baseline_account_circle_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/m3_tiet_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
@@ -51,66 +95,42 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/menu_sorts"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Ordenamientos"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/m3_til_tema"
-            android:layout_marginTop="10dp"
-            >
-
-            <AutoCompleteTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                app:simpleItems="@array/opciones_ordenamiento"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/m3_til_limite"
+            android:id="@+id/m3_til_contrasenia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Limite"
+            android:hint="@string/contrase_a"
             app:boxBackgroundColor="@android:color/white"
-            app:endIconMode="clear_text"
+            app:endIconMode="password_toggle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/menu_sorts"
-            app:startIconContentDescription="Ingreso del Limite"
+            app:layout_constraintTop_toBottomOf="@+id/m3_til_email"
+            app:startIconContentDescription="Ingreso de la contraseña"
 
-            >
+            app:startIconDrawable="@drawable/ico_baseline_admin_panel_settings_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/m3_tiet_limite"
+                android:id="@+id/m3_tiet_contrasenia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white" />
+                android:background="@android:color/white"
+                android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <Button
-            android:id="@+id/btn_consultar"
+            android:id="@+id/btn_eliminar"
             style="@style/button_style1"
-            android:layout_width="160dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Consultar"
-            app:icon="@drawable/ico_baseline_list_24"
+            android:layout_marginTop="148dp"
+            android:text="Eliminar usuario"
+            app:icon="@drawable/ico_baseline_add_24"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/m3_til_limite"
-
-
-            />
-
+            app:layout_constraintTop_toBottomOf="@+id/m3_til_contrasenia" />
 
         <TextView
             android:id="@+id/edt_text"

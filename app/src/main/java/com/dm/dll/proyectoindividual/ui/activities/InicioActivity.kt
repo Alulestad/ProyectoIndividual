@@ -110,7 +110,7 @@ class InicioActivity : AppCompatActivity() {
                 }
 
                 R.id.it_perfil -> {
-
+                    startActivity(Intent(this@InicioActivity,OpcionesUsuarioActivity::class.java))
                 }
 
                 R.id.it_cerrar_sesion -> {

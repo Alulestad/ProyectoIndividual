@@ -110,6 +110,7 @@ class TitularesActivity : AppCompatActivity() {
                 }
 
                 R.id.it_perfil -> {
+                    startActivity(Intent(this@TitularesActivity,OpcionesUsuarioActivity::class.java))
 
                 }
 
